@@ -193,10 +193,10 @@ interface Style {
     // 展示策略
     visibility?: Display;
     // 宽度。单位为px的数值
-    width?: number;
+    width?: string;
 
     // 高度，单位为px的数值
-    height?: number;
+    height?: string;
 
     // 外边距，值必须是包含四部分，依次代表上、右、下、左四个方向的间距，单位为px， 示例: margin: '10px 10px 8px 4px'
     margin?: string;
@@ -204,7 +204,7 @@ interface Style {
     // 内边距，值必须是包含四部分，依次代表上、右、下、左四个方向的间距，单位为px， 示例: padding: '10px 10px 8px 4px'
     padding?: string;
     // 矩形边框宽度。单位为px
-    borderWidth?: number;
+    borderWidth?: string;
     // 矩形边框颜色。取值同css中border-color
     borderColor?: string;
     // 圆角边框，单位为px
@@ -228,7 +228,7 @@ interface Style {
     // 布局方位(linear/frame直接子节点应用)
     gravity?: Gravity;
     // 类似css的z-index
-    weight?: number;
+    weight?: string;
     // 定义项目的放大比例(flex直接子元素应用)
     flexGrow?: FlexGrow;
     // 定义了项目的缩小比例(flex直接子元素应用)
@@ -248,7 +248,7 @@ interface Style {
     repeat?: string;
     resizeMode?: LottieResizeMode;
     // 文本字体大小k。单位为px。
-    fontSize?: number;
+    fontSize?: string;
     // 文本颜色。仅支持 RGB 格式的颜色值， 示例: color: '#fefefe'
     color?: string;
     // 文本截断位置
@@ -267,11 +267,11 @@ interface Style {
  */
 interface GeneralStyle {
     visibility?: Display;
-    width?: number;
-    height?: number;
+    width?: string;
+    height?: string;
     margin?: string;
     padding?: string;
-    borderWidth?: number;
+    borderWidth?: string;
     borderColor?: string;
     borderRadius?: string;
     bgColor?: string;
@@ -346,7 +346,7 @@ interface FlexStyle extends GeneralStyle {
     alignItems?: AlignItems;
     justifyContent?: JustifyContent;
     gravity?: Gravity;
-    weight?: number;
+    weight?: string;
     flexGrow?: FlexGrow;
     flexShrink?: FlexShrink;
     alignSelf?: AlignSelf;
@@ -368,7 +368,7 @@ interface FrameStyle extends GeneralStyle {
     scaleType?: ImgScaleType;
     overflow?: Overflow;
     gravity?: Gravity;
-    weight?: number;
+    weight?: string;
     flexGrow?: FlexGrow;
     flexShrink?: FlexShrink;
     alignSelf?: AlignSelf;
@@ -393,7 +393,7 @@ interface LinearStyle extends GeneralStyle {
     gap?: string;
     showNum?: string;
     gravity?: Gravity;
-    weight?: number;
+    weight?: string;
     flexGrow?: FlexGrow;
     flexShrink?: FlexShrink;
     alignSelf?: AlignSelf;
@@ -413,7 +413,7 @@ interface LinearNode extends ContainerNode {
 interface ScrollStyle extends GeneralStyle {
     orientation: Orientation;
     gravity?: Gravity;
-    weight?: number;
+    weight?: string;
     flexGrow?: FlexGrow;
     flexShrink?: FlexShrink;
     alignSelf?: AlignSelf;
@@ -432,7 +432,7 @@ interface ScrollNode extends ContainerNode {
  */
 interface SpanStyle {
     visibility?: Display;
-    fontSize: number;
+    fontSize: string;
     color: string;
     ellipsis: Ellipsis;
     fontWeight: FontWeight;
@@ -463,7 +463,7 @@ interface ImgStyle extends GeneralStyle {
     scaleType: ImgScaleType;
     placeHolder?: string;
     gravity?: Gravity;
-    weight?: number;
+    weight?: string;
     flexGrow?: FlexGrow;
     flexShrink?: FlexShrink;
     alignSelf?: AlignSelf;
@@ -490,7 +490,7 @@ interface LottieStyle extends GeneralStyle {
     repeat?: string;
     resizeMode?: LottieResizeMode;
     gravity?: Gravity;
-    weight?: number;
+    weight?: string;
     flexGrow?: FlexGrow;
     flexShrink?: FlexShrink;
     alignSelf?: AlignSelf;
