@@ -197,10 +197,10 @@ interface Style {
     // 高度，单位为px的数值
     height?: number;
 
-    // 外边距，值必须是包含四部分，依次代表上、右、下、左四个方向的间距，单位为px， 示例: margin: '10px 10px 8px 4px'
+    // 外边距，值必须是包含四部分，依次代表上、右、下、左四个方向的间距，单位为px， 示例: margin: '10 10 8 4'
     margin?: string;
 
-    // 内边距，值必须是包含四部分，依次代表上、右、下、左四个方向的间距，单位为px， 示例: padding: '10px 10px 8px 4px'
+    // 内边距，值必须是包含四部分，依次代表上、右、下、左四个方向的间距，单位为px， 示例: padding: '10 10 8 4'
     padding?: string;
     // 矩形边框宽度。单位为px
     borderWidth?: number;
@@ -226,8 +226,6 @@ interface Style {
     justifyContent?: JustifyContent;
     // 布局方位(linear/frame直接子节点应用)
     gravity?: Gravity;
-    // 类似css的z-index
-    weight?: number;
     // 定义项目的放大比例(flex直接子元素应用)
     flexGrow?: FlexGrow;
     // 定义了项目的缩小比例(flex直接子元素应用)
@@ -236,16 +234,7 @@ interface Style {
     alignSelf?: AlignSelf;
     // 图片或者lottie地址
     src?: string;
-    placeHolder?: string;
     loopTime?: string;
-    scale?: string;
-    // linear元素的排列方向
-    orientation?: Orientation;
-    weightSum?: string;
-    gap?: string;
-    showNum?: string;
-    repeat?: string;
-    resizeMode?: LottieResizeMode;
     // 文本字体大小k。单位为px。
     fontSize?: number;
     // 文本颜色。仅支持 RGB 格式的颜色值， 示例: color: '#fefefe'
@@ -281,37 +270,6 @@ interface GeneralStyle {
 /**
  * 条件类型，仅支持 mfor 指令。
  *
- * 对于数组和对象数据， 可以使用 mfor 语法来表示循环一个列表数据， 并生成对应的节点标签， 下面是一个根据数据循环生成 span 标签的示例
- *
- * 遍历数组`{x: ['a', 'b', 'c']}`：
- * ```js
- * {
- *     type: 'span',
- *     condition: {
- *         mfor: {
- *             list: '${data.x}', // 变量 x 是个数组
- *             item: 'item', // 值就是对应单个列表项的变量名， 可以指定任意合法的变量名
- *             index: 'i' // 对应单个列表项在数组中的索引， 可以指定任意合法的变量名
- *         },
- *     },
- *     text: '${ i } - ${ item }' // 可以使用 mfor 条件里定义的变量名
- * }
- * ```
- *
- * 遍历对象`{y: {a: 1, b: 2, c: 3}}`：
- * ```js
- * {
- *     type: 'span',
- *     condition: {
- *         mfor: {
- *             list: '${data.y}', // 变量 x 是个对象
- *             item: 'val', // 值可以指定任意合法的变量名， 对应对象里单个键值对的值
- *             index: 'key' // 值可以指定任意合法的变量名， 对应对象里单个键值对的健
- *         },
- *     },
- *     text: '${ key } - ${ val }' // 可以使用 mfor 条件里定义的变量名
- * }
- * ```
  */
 interface Condition {
     // 循环的列表变量，支持数组和对象
@@ -431,11 +389,7 @@ interface LottieStyle extends GeneralStyle {
     // lottie 资源地址， 一个 URL， 注意， src 属性是在标签的 style 字段下， 而不是标签的根节点里
     src: string;
     scaleType: ImgScaleType;
-    placeHolder?: string;
     loopTime?: string;
-    scale?: string;
-    repeat?: string;
-    resizeMode?: LottieResizeMode;
     gravity?: Gravity;
     weight?: number;
     flexGrow?: FlexGrow;
@@ -459,113 +413,3 @@ interface LottieNode {
  * 以下就是标准里定义的所有标签，标签名为每个标签类型定义里的 type 字段，每个 DSL 描述都需要符合以下格式
  */
 export type Node = FlexNode | SpanNode | ImgNode | LottieNode;
-
-/*
-
-下面是一个比较完整的示例， 包括了 mock 数据， 以及绑定了 mock 数据的 DSL 描述。
-
-json 格式的 mock 数据如下:
-
-```json
-{
-    "title": "xxx",
-    "person": {
-        "name": "Jack"
-    },
-    "x": ["a", "b"],
-    "y": {
-        "a": 1,
-        "b": 2
-    }
-}
-```
-
-DSL 描述：
-
-> 注意：为了方便描述，DSL 里省略了大部分的样式属性， 同时没有使用 JSON 格式， 而是 JS 里的对象格式
-
-```javascript
-// 需要严格符合 Node 类型
-{
-    type: 'flex';
-    style: {
-        flexDirection: 'column',
-    },
-    children: [
-        {
-            type: 'flex',
-            style: {
-                flexDirection: 'row',
-            },
-            children: [
-                {
-                    type: 'span',
-                    text: '${ data.title }' // 使用 title 字段
-                }，
-                {
-                    type: 'span',
-                    text: '${ data.person.name }' // 使用 person.name 字段
-                }
-            ]
-        },
-        {
-            type: 'flex',
-            style: {
-                flexDirection: 'row',
-            },
-            children: [
-                {
-                    type: 'span',
-                    condition: {
-                        // 使用 mfor 语法来遍历数组， 以便精简 DSL 体积
-                        mfor: {
-                            list: '${data.x}', // 变量 x 是个数组
-                            item: 'item', // 值就是对应单个列表项的变量名， 可以指定任意合法的变量名
-                            index: 'i' // 对应单个列表项在数组中的索引， 可以指定任意合法的变量名
-                        },
-                    },
-                    text: '${ i } - ${ item }' // 可以使用 mfor 条件里定义的变量名
-                }
-            ]
-        },
-        {
-
-            type: 'flex',
-            style: {
-                flexDirection: 'row',
-            },
-            children: [
-                {
-                    type: 'flex',
-                    style: {
-                        flexDirection: 'row',
-                    },
-                    condition: {
-                        // 使用 mfor 语法来遍历对象， 以便精简 DSL 体积
-                        mfor: {
-                            list: '${data.y}', // 也支持对 对象使用 mfor 条件语法
-                            item: 'val', // 值可以指定任意合法的变量名， 对应对象里单个键值对的值
-                            index: 'key' // 值可以指定任意合法的变量名， 对应对象里单个键值对的健
-                        },
-                    },
-                    children: [
-                        {
-                            type: 'img',
-                            style: {
-                                src: '${ val.imgUrl }' // 使用 for 条件里定义的变量名
-                            }
-                        },
-                        {
-                            type: 'span',
-                            text: '${ key } - ${ val.text }' // 使用 for 条件里定义的变量名
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
-}
-```
-
-
-*/
