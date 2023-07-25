@@ -2,159 +2,97 @@
     "type": "flex",
     "style": {
         "flexDirection": "column",
-        "width": "100%"
+        "width": "100%",
+        "height": "100%"
     },
     "children": [
         {
-            "type": "flex",
+            "type": "span",
             "style": {
-                "flexDirection": "row",
-                "justifyContent": "space-between",
-                "width": "100%"
+                "fontSize": "24",
+                "color": "#000000"
             },
-            "children": [
-                {
-                    "type": "span",
-                    "style": {
-                        "fontSize": "16",
-                        "color": "#000000"
-                    },
-                    "text": "${data.topBar.backButton}"
-                },
-                {
-                    "type": "img",
-                    "style": {
-                        "src": "${data.topBar.logo}",
-                        "width": "50",
-                        "height": "50"
-                    }
-                },
-                {
-                    "type": "span",
-                    "style": {
-                        "fontSize": "16",
-                        "color": "#000000"
-                    },
-                    "text": "${data.topBar.shareButton}"
-                }
-            ]
+            "text": "${data.title}"
         },
         {
             "type": "flex",
             "style": {
                 "flexDirection": "row",
-                "justifyContent": "flex-start",
+                "justifyContent": "space-between",
                 "width": "100%"
             },
             "children": [
                 {
                     "type": "img",
                     "style": {
-                        "src": "${data.userInfo.avatar}",
-                        "width": "50",
-                        "height": "50"
-                    }
-                },
-                {
-                    "type": "flex",
-                    "style": {
-                        "flexDirection": "column",
-                    },
-                    "children": [
-                        {
-                            "type": "span",
-                            "style": {
-                                "fontSize": "16",
-                                "color": "#000000"
-                            },
-                            "text": "${data.userInfo.nickname}"
-                        },
-                        {
-                            "type": "span",
-                            "style": {
-                                "fontSize": "12",
-                                "color": "#888888"
-                            },
-                            "text": "${data.userInfo.description}"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "type": "flex",
-            "style": {
-                "flexDirection": "row",
-                "justifyContent": "space-between",
-                "width": "100%"
-            },
-            "children": [
-                {
-                    "type": "span",
-                    "style": {
-                        "fontSize": "16",
-                        "color": "#000000"
-                    },
-                    "text": "${data.userInfo.contribution.questionCount}"
-                },
-                {
-                    "type": "span",
-                    "style": {
-                        "fontSize": "16",
-                        "color": "#000000"
-                    },
-                    "text": "${data.userInfo.contribution.coinCount}"
-                },
-                {
-                    "type": "span",
-                    "style": {
-                        "fontSize": "16",
-                        "color": "#000000"
-                    },
-                    "text": "${data.userInfo.contribution.helpedPeople}"
-                }
-            ]
-        },
-        {
-            "type": "flex",
-            "style": {
-                "flexDirection": "row",
-                "justifyContent": "space-between",
-                "width": "100%"
-            },
-            "children": [
-                {
-                    "type": "flex",
-                    "style": {
-                        "flexDirection": "column",
-                        "alignItems": "center",
-                        "justifyContent": "center"
+                        "src": "${imageLink.imageUrl}",
+                        "width": "100",
+                        "height": "100"
                     },
                     "condition": {
                         "mfor": {
-                            "list": "${data.commonFunctions}",
-                            "item": "function",
+                            "list": "${data.imageLinks}",
+                            "item": "imageLink",
                             "index": "i"
                         }
+                    }
+                }
+            ]
+        },
+        {
+            "type": "flex",
+            "style": {
+                "flexDirection": "row",
+                "width": "100%"
+            },
+            "condition": {
+                "mfor": {
+                    "list": "${data.appList}",
+                    "item": "app",
+                    "index": "i"
+                }
+            },
+            "children": [
+                {
+                    "type": "img",
+                    "style": {
+                        "src": "${app.imageUrl}",
+                        "width": "100",
+                        "height": "100"
+                    }
+                },
+                {
+                    "type": "flex",
+                    "style": {
+                        "flexDirection": "column",
+                        "flexGrow": "1"
                     },
                     "children": [
                         {
-                            "type": "img",
+                            "type": "span",
                             "style": {
-                                "src": "${function.icon}",
-                                "width": "50",
-                                "height": "50"
-                            }
+                                "fontSize": "18",
+                                "color": "#000000"
+                            },
+                            "text": "${app.title}"
                         },
                         {
                             "type": "span",
                             "style": {
-                                "fontSize": "12",
-                                "color": "#888888"
+                                "fontSize": "14",
+                                "color": "#666666"
                             },
-                            "text": "${function.text}"
+                            "text": "${app.description}"
                         }
                     ]
+                },
+                {
+                    "type": "span",
+                    "style": {
+                        "fontSize": "16",
+                        "color": "#1E90FF"
+                    },
+                    "text": "申请"
                 }
             ]
         }

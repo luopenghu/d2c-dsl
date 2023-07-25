@@ -232,9 +232,8 @@ interface Style {
     flexShrink?: FlexShrink;
     // 允许 flex 的直接子元素有与其他直接子元素不一样的对齐方式，可覆盖alignItems属性
     alignSelf?: AlignSelf;
-    // 图片或者lottie地址
+    // 图片地址
     src?: string;
-    loopTime?: string;
     // 文本字体大小k。单位为px。
     fontSize?: number;
     // 文本颜色。仅支持 RGB 格式的颜色值， 示例: color: '#fefefe'
@@ -381,35 +380,8 @@ interface ImgNode {
     condition?: Condition;
 }
 
-/**
- * lottie 标签支持的样式属性， lottie 标签只能使用这些样式属性
- * 属性值类型和 Style 类型一致， 属于 Style 类型的一个子集
- */
-interface LottieStyle extends GeneralStyle {
-    // lottie 资源地址， 一个 URL， 注意， src 属性是在标签的 style 字段下， 而不是标签的根节点里
-    src: string;
-    scaleType: ImgScaleType;
-    loopTime?: string;
-    gravity?: Gravity;
-    weight?: number;
-    flexGrow?: FlexGrow;
-    flexShrink?: FlexShrink;
-    alignSelf?: AlignSelf;
-}
-
-// lottie 标签的定义，是内容标签之一： lottie 标签， 语法类似 img 标签，但只能用来显示 lottie 资源
-interface LottieNode {
-    // 标签名固定为 'lottie'
-    type: 'lottie';
-    style: LottieStyle;
-
-    /**
-     * 条件语法，仅支持 mfor 指令， 具体参考 Condition 类型
-     */
-    condition?: Condition;
-}
 
 /**
  * 以下就是标准里定义的所有标签，标签名为每个标签类型定义里的 type 字段，每个 DSL 描述都需要符合以下格式
  */
-export type Node = FlexNode | SpanNode | ImgNode | LottieNode;
+export type Node = FlexNode | SpanNode | ImgNode;
