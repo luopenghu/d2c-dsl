@@ -1,11 +1,13 @@
 这是一个 ts 的类型定义： https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/dsl.ts ， 记为 X。
 
-下面是一个完整的示例，包括了 UI 界面描述，根据 ui 界面描述生成的 mock 数据， 以及绑定了 mock 数据的 DSL 描述：
-示例1：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/demo1.md ；
-示例2：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/demo2.md ；
-示例3：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/demo3.md 。
+为了更好的了解 X 的用法，下面提供了几个完整的示例，包括了 UI 界面描述，根据 ui 界面描述生成的 mock 数据， 以及绑定了 mock 数据的 DSL 描述：
+示例1：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/demo1.md
+示例2：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/demo2.md
+示例3：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/demo3.md
 
-这是一个具体的 UI 界面描述： https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/ui.txt ，记为 Y， 注意：里面非 UI 描述的内容可以忽略，比如界面交互。
+学习完 X 并且查看完所有示例之后，接下来请按照 X 的用法，实现以下需求：
+
+UI 界面描述： https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/ui.txt ，记为 Y， 注意：里面非 UI 描述的内容可以忽略，比如界面交互。
 
 第一步：请你生成一份符合 Y 描述的 mock 数据， 要求如下：
 1. 以 JSON 格式输出一个代码块，不要添加注释，也不要有额外的解释， 里面的字段名使用英文， 字段值尽量合理使用中文
