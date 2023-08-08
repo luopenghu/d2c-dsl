@@ -3,15 +3,15 @@
 UI 界面描述：
 
 ```text
-水平两列布局
+水平两列布局，从左到右依次是第一列，第二列
 ```
 
 根据 UI 界面描述，生成的 mock 数据如下:
 
 ```json
 {
-  "left": "左边文案",
-  "right": "右边文案"
+  "first": "这是第一列",
+  "second": "这是第二列"
 }
 ```
 
@@ -19,44 +19,24 @@ UI 界面描述：
 {
   "type": "flex",
   "style": {
-    "width": "100%",
-    "height": "auto",
     "flexDirection": "row",
   },
   "children": [
     {
       "type": "flex",
-      "style": {
-        "width": "auto",
-        "height": "auto",
-        "flexGrow": "1",
-      },
       "children": [
         {
           "type": "span",
-          "style": {
-            "fontSize": "18",
-            "color": "#11141A",
-          },
-          "text": "${data.left}"
+          "text": "${data.first}"
         }
       ]
     },
     {
       "type": "flex",
-      "style": {
-        "width": "auto",
-        "height": "auto",
-        "flexGrow": "1",
-      },
       "children": [
         {
           "type": "span",
-          "style": {
-            "fontSize": "18",
-            "color": "#11141A",
-          },
-          "text": "${data.right}"
+          "text": "${data.second}"
         }
       ]
     }
@@ -69,16 +49,16 @@ UI 界面描述：
 UI 界面描述：
 
 ```text
-水平三列布局
+水平三列布局，从左到右依次是第一列，第二列，第三列
 ```
 
 根据 UI 界面描述，生成的 mock 数据如下:
 
 ```json
 {
-  "left": "左边文案",
-  "center": "中间文案",
-  "right": "右边文案"
+  "first": "这是第一列",
+  "second": "这是第二列",
+  "third": "这是第三列"
 }
 ```
 
@@ -86,55 +66,33 @@ UI 界面描述：
 {
   "type": "flex",
   "style": {
-    "width": "100%",
     "flexDirection": "row",
   },
   "children": [
     {
       "type": "flex",
-      "style": {
-        "flexGrow": "1",
-      },
       "children": [
         {
           "type": "span",
-          "style": {
-            "fontSize": "18",
-            "color": "#11141A",
-          },
-          "text": "${data.left}"
+          "text": "${data.first}"
         }
       ]
     },
     {
       "type": "flex",
-      "style": {
-        "flexGrow": "1",
-      },
       "children": [
         {
           "type": "span",
-          "style": {
-            "fontSize": "18",
-            "color": "#11141A",
-          },
-          "text": "${data.center}"
+          "text": "${data.second}"
         }
       ]
     },
     {
       "type": "flex",
-      "style": {
-        "flexGrow": "1",
-      },
       "children": [
         {
           "type": "span",
-          "style": {
-            "fontSize": "18",
-            "color": "#11141A",
-          },
-          "text": "${data.right}"
+          "text": "${data.third}"
         }
       ]
     }
@@ -147,7 +105,7 @@ UI 界面描述：
 UI 界面描述：
 
 ```text
-水平循环五列
+水平循环五列，从左到右依次是第一列，第二列，第三列，第四列，第五列
 ```
 
 根据 UI 界面描述，生成的 mock 数据如下:
@@ -155,11 +113,11 @@ UI 界面描述：
 ```json
 {
   "list": [
-    {"text": "列1"},
-    {"text": "列2"},
-    {"text": "列3"},
-    {"text": "列4"},
-    {"text": "列5"}
+    "这是第一列",
+    "这是第二列",
+    "这是第三列",
+    "这是第四列",
+    "这是第五列"
   ]
 }
 ```
@@ -168,15 +126,11 @@ UI 界面描述：
 {
   "type": "flex",
   "style": {
-    "width": "100%",
     "flexDirection": "row",
   },
   "children": [
     {
       "type": "flex",
-      "style": {
-        "flexGrow": "1",
-      },
       "condition": {
           "mfor": {
               "list": "${data.list}",
@@ -187,37 +141,27 @@ UI 界面描述：
       "children": [
         {
           "type": "span",
-          "style": {
-            "fontSize": "18",
-            "color": "#11141A",
-          },
-          "text": "${item.text}"
+          "text": "${item}"
         }
       ]
     }
   ]
 }
 ```
-
-4、示例4
+4、示例4：
 
 UI 界面描述：
 
 ```text
-垂直循环五行
+垂直两行排列，从上到下依次是第一行，第二行
 ```
 
 根据 UI 界面描述，生成的 mock 数据如下:
 
 ```json
 {
-  "list": [
-    {"text": "行1"},
-    {"text": "行2"},
-    {"text": "行3"},
-    {"text": "行4"},
-    {"text": "行5"}
-  ]
+  "first": "这是第一行",
+  "second": "这是第二行"
 }
 ```
 
@@ -225,30 +169,24 @@ UI 界面描述：
 {
   "type": "flex",
   "style": {
-    "width": "100%",
     "flexDirection": "column",
   },
   "children": [
     {
       "type": "flex",
-      "style": {
-          "width": "100%",
-      },
-      "condition": {
-          "mfor": {
-              "list": "${data.list}",
-              "item": "item",
-              "index": "i"
-          }
-      },
       "children": [
         {
           "type": "span",
-          "style": {
-            "fontSize": "18",
-            "color": "#11141A",
-          },
-          "text": "${item.text}"
+          "text": "${data.first}"
+        }
+      ]
+    },
+    {
+      "type": "flex",
+      "children": [
+        {
+          "type": "span",
+          "text": "${data.second}"
         }
       ]
     }
@@ -261,32 +199,16 @@ UI 界面描述：
 UI 界面描述：
 
 ```text
-整个界面水平排列，左边是垂直水平居中文字，中间是垂直排列并且水平居中的5行文本，右边是垂直水平居中的文字
+垂直三行排列，从上到下依次是第一行，第二行，第三行
 ```
 
 根据 UI 界面描述，生成的 mock 数据如下:
 
 ```json
 {
-  "left": "左边文字",
-  "centerList": [
-    {
-      "text": "行1"
-    },
-    {
-      "text": "行2"
-    },
-    {
-      "text": "行3"
-    },
-    {
-      "text": "行4"
-    },
-    {
-      "text": "行5"
-    }
-  ],
-  "right": "右边文字"
+  "first": "这是第一行",
+  "second": "这是第二行",
+  "third": "这是第三行"
 }
 ```
 
@@ -294,83 +216,33 @@ UI 界面描述：
 {
   "type": "flex",
   "style": {
-    "width": "100%",
-    "height": "auto",
-    "flexDirection": "row",
+    "flexDirection": "column",
   },
   "children": [
     {
       "type": "flex",
-      "style": {
-        "width": "100",
-        "height": "100%",
-        "flexDirection": "column",
-        "alignItems": "center",
-        "justifyContent": "center"
-      },
       "children": [
         {
           "type": "span",
-          "style": {
-            "fontSize": "18",
-            "color": "#11141A",
-          },
-          "text": "${data.left}",
+          "text": "${data.first}"
         }
       ]
     },
     {
       "type": "flex",
-      "style": {
-        "flexDirection": "column",
-        "flexGrow": "1",
-      },
       "children": [
         {
-          "type": "flex",
-          "style": {
-            "width": "100%",
-            "height": "auto",
-            "flexDirection": "row",
-            "justifyContent": "center",
-          },
-          "condition": {
-            "mfor": {
-              "list": "${data.centerList}",
-              "item": "item",
-              "index": "i"
-            }
-          },
-          "children": [
-            {
-              "type": "span",
-              "style": {
-                "fontSize": "18",
-                "color": "#11141A",
-              },
-              "text": "${item.text}"
-            }
-          ]
+          "type": "span",
+          "text": "${data.second}"
         }
       ]
     },
     {
       "type": "flex",
-      "style": {
-        "width": "100",
-        "height": "100%",
-        "flexDirection": "column",
-        "alignItems": "center",
-        "justifyContent": "center",
-      },
       "children": [
         {
           "type": "span",
-          "style": {
-            "fontSize": "18",
-            "color": "#11141A",
-          },
-          "text": "${data.right}"
+          "text": "${data.third}"
         }
       ]
     }
@@ -383,32 +255,20 @@ UI 界面描述：
 UI 界面描述：
 
 ```text
-整个界面垂直排列，上面是垂直水平居中文字，中间是水平排列并且垂直居中的5行文本，下面是垂直水平居中的文字
+垂直循环五行排列，从左到右依次是第一行，第二行，第三行，第四行，第五行
 ```
 
 根据 UI 界面描述，生成的 mock 数据如下:
 
 ```json
 {
-  "top": "上面文字",
-  "centerList": [
-    {
-      "text": "列1"
-    },
-    {
-      "text": "列2"
-    },
-    {
-      "text": "列3"
-    },
-    {
-      "text": "列4"
-    },
-    {
-      "text": "列5"
-    }
-  ],
-  "bottom": "下面文字"
+  "list": [
+    "这是第一行",
+    "这是第二行",
+    "这是第三行",
+    "这是第四行",
+    "这是第五行"
+  ]
 }
 ```
 
@@ -416,83 +276,22 @@ UI 界面描述：
 {
   "type": "flex",
   "style": {
-    "width": "100%",
-    "height": "auto",
     "flexDirection": "column",
   },
   "children": [
     {
       "type": "flex",
-      "style": {
-        "width": "100%",
-        "height": "100",
-        "flexDirection": "column",
-        "alignItems": "center",
-        "justifyContent": "center"
-      },
-      "children": [
-        {
-          "type": "span",
-          "style": {
-            "fontSize": "18",
-            "color": "#11141A",
-          },
-          "text": "${data.top}",
-        }
-      ]
-    },
-    {
-      "type": "flex",
-      "style": {
-        "width": "100%",
-        "flexDirection": "row",
-      },
-      "children": [
-        {
-          "type": "flex",
-          "style": {
-            "height": "30",
-            "flexDirection": "row",
-            "alignItems": "center",
-            "flexGrow": "1",
-          },
-          "condition": {
-            "mfor": {
-              "list": "${data.centerList}",
+      "condition": {
+          "mfor": {
+              "list": "${data.list}",
               "item": "item",
               "index": "i"
-            }
-          },
-          "children": [
-            {
-              "type": "span",
-              "style": {
-                "fontSize": "18",
-                "color": "#11141A",
-              },
-              "text": "${item.text}"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "type": "flex",
-      "style": {
-        "width": "100%",
-        "height": "100",
-        "flexDirection": "column",
-        "alignItems": "center",
-        "justifyContent": "center",
+          }
       },
       "children": [
         {
           "type": "span",
-          "style": {
-            "fontSize": "18",
-            "color": "#11141A",
-          },
-          "text": "${data.bottom}"
+          "text": "${item}"
         }
       ]
     }
