@@ -1,0 +1,30 @@
+这是一个 ts 的类型定义： https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/dsl/dsl-single-lph.ts ， 记为 X。
+
+为了更好的了解 X 的用法，下面提供了几个完整的示例，包括了 UI 界面描述，根据 ui 界面描述生成的 mock 数据， 以及绑定了 mock 数据的 DSL 描述，请仔细阅读并且理解：
+多个简单示例：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/demo/examples.md
+多个组合示例：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/demo/examples2.md
+单个示例1：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/demo/demo1.md
+单个示例2：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/demo/demo2.md
+单个示例3：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/demo/demo3.md
+单个示例4：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/demo/demo_ljh.md
+单个示例5：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/demo/demo_lrn.md
+单个示例6：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/demo/demo_scc.md
+单个示例7：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/demo/demo_zhk.md
+
+UI 界面描述： https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/ui/lph-2.txt ，记为 Y， 注意：里面非 UI 描述的内容可以忽略，比如界面交互。
+
+第一步：学习 X 并且查看完所有示例，不需要输出具体步骤，只需要输出结果。
+
+第二步：请你生成一份符合 Y 描述的 mock 数据， 要求如下：
+1. 以 JSON 格式输出一个代码块，不要添加注释，也不要有额外的解释， 里面的字段名使用英文， 字段值尽量合理使用中文
+2. 字段值如果表示一个连接， 那尽可能的让它看起来像个链接
+3. 如果数据是数组， 那数组长度不能小于 5， 不能大于 10
+4. 仅输出 JSON 数据即可， 不要输出其他内容，也不用输出注释。
+
+第三步：请你根据 X 生成一份完整的符合它里面定义的 Node 类型的 JSON 数据， 要求如下：
+1. JSON 内容能用来表示上面 Y 描述的 UI 界面， 不要添加注释，也不要有额外的解释。
+2. 界面的布局部分， 你会尽可能的使用 `flex`;数据里的  style 字段， 你会尽可能的填充上符合 Y 描述和 Node 类型的字段及值。
+3. 输出时， JSON 里 number 类型的值， 需要全部转为 string 类型, 比如 1 需要转为 '1'
+4. JSON 内容里需要绑定上面生成的 mock 数据， 格式为 '${字段名}' ， 其中字段名支持多级，mock 数据整体本身命名固定为 `data`
+5. 对于数组数据， 对应的 JSON 节点必须使用 `condition.mfor` 来进行循环
+6. 不管任务是否复杂，不要进行分步，一次性完整输出。
