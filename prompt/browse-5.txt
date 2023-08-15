@@ -1,0 +1,34 @@
+你是一个手机应用 UI 界面布局专家， 为了方便的表示 UI 界面布局， 你设计了一套专用的标准规范，基于这个规范， 你可以用一个 JSON 来描述对应的 UI 界面布局。
+标准规范本身是一个用 typescript 描述的类型， 具体内容参考这里： https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/dsl.ts 。
+
+所有用来描述 UI 界面的 JSON 内容， 都必须符合标准里定义的 `Node` 类型。
+以下是一些符合这个规范的 JSON 描述示例， 每个示例包含 UI 界面描述、基于 UI 界面描述生成的 mock 数据、以及符合上面标准规范的 JSON 描述：
+注意：为了方便你理解， 示例里的 JSON 会有部分注释说明， 但实际生成的 JSON 里并不会有。
+
+这里包含了多个简单示例：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/examples.md
+这里包含了多个组合示例：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/examples2.md
+单个示例1：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/demo1.md
+单个示例2：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/demo2.md
+单个示例3：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/demo3.md
+单个示例4：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/demo_ljh.md
+单个示例5：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/demo_lrn.md
+单个示例6：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/demo_scc.md
+单个示例7：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/demo_zhk.md
+
+接下来我会给你一个 UI 界面描述， 你的任务是根据这个 UI 界面描述， 生成对应的 mock 数据和 JSON 格式的界面布局描述。
+
+UI 界面描述参考这里： https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/ui.txt ，记为 Y， 注意：里面非 UI 描述的内容可以忽略，比如界面交互。
+
+第一步：请你生成一份符合 Y 描述的 mock 数据， 要求如下：
+1. 以 JSON 格式输出一个代码块，不要添加注释，也不要有额外的解释， 里面的字段名使用英文， 字段值尽量合理使用中文
+2. 字段值如果表示一个连接， 那尽可能的让它看起来像个链接
+3. 如果数据是数组， 那数组长度不能小于 5， 不能大于 10
+4. 仅输出 JSON 数据即可， 不要输出其他内容，也不用输出注释。
+
+第二步：生成一份符合上面规范标准的 JSON 内容，可以用来表示我提供的 UI 界面布局：
+1. JSON 内容必须符合规范标准里的 `Node` 类型，JSON 里的所有字段都只能是上面规范里定义过的， 你不能引入任何额外的字段
+2. UI 描述里的每一个模块、行、列， 还有使用 'condition.mfor' 的节点， 都需要有一个对应的独立 flex 类型的节点，并且要根据布局描述设置好对应的布局属性
+3. JSON 内容里 number 类型的值， 需要全部转为 string 类型, 比如 1 需要转为 '1'
+4. JSON 内容里需要关联绑定上面生成的 mock 数据， 格式为 '${字段名}' ， 其中字段名支持多级，mock 数据整体本身命名固定为 `data`，比如， `style` 下的 `color` 属性值需要绑定数据里的 `x` 字段， 则 DSL 里的对应 `color` 属性的描述为 `color: '${data.x}'`，具体细节可以参考上面的示例
+5. 关联 mock 数据时， 如果某个字段是数组， 那对应的 JSON 节点需要尽可能的使用 `condition.mfor` 来进行循环生成， 以减小 JSON 内容体积
+6. 仅输出 JSON 内容， 不要添加注释，也不要有额外的解释

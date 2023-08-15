@@ -174,7 +174,7 @@ UI 界面从上到下依次分为以下几个模块：
                                     "condition": {
                                         "mfor": {
                                             "list": "${data.questionModule.buttons}",
-                                            "item": "button",
+                                            "item": "item",
                                             "index": "i"
                                         }
                                     },
@@ -185,7 +185,7 @@ UI 界面从上到下依次分为以下几个模块：
                                                 "fontSize": "14",
                                                 "color": "#666666"
                                             },
-                                            "text": "${button}"
+                                            "text": "${item}"
                                         }
                                     ]
                                 }

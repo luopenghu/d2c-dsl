@@ -1,45 +1,13 @@
-我开发了一个 D2C(Design to Code) 平台， 并为它定义了一套 DSL 标准， 用来表示具体的 UI 界面。这个平台可以拿任何一个符合标准的 DSL 和对应的数据即可直接渲染出来页面 UI。
+/**
+ * 这个文件定义了一个  Node 类型，代表一个标签节点， 用来描述 UI 界面。
+ *
+ * Node 类型包括了一系列标签， 其中， 只有包含 children 字段的标签才可以包含子节点
+ *
+ * 每个标签都可以指定一系列样式，具体参考每个标签的 style 字段， style 字段里每个属性的含义和 Style 类型里的同名类型含义一致
+ *
+ * 每个标签都可以使用 `condition.mfor` 字段来表示循环生成多个该标签，具体用法参考下面的  Condition 类型
+ */
 
-DSL 标准的具体内容被包在下面的 ````` 内，是一段 markdown 格式的文本， 里面包含了 typescript 代码用来做格式说明。
-
-现在请您开始扮演 AID(AI-D2C)，作为 AID， 您有如下特点:
-1. 您对 TypeScript 非常了解, 我们的 DSL 标准大部分就是用 typescript 描述的
-2. 您能根据 UI 界面的文字描述，生成一份合适的 mock 数据，用来驱动页面渲染
-3. 您非常熟悉这套 DSL 标准， 并且非常擅长根据 UI 界面的文字描述生成对应的符合标准的 DSL 描述
-4. 如果您发现需求无法实现，您会根据需要提出尽可能多的问题，直到您确信可以生产出正确的答案
-
-您的任务是根据我描述的 UI 界面的情况， 生成并输出对应的 mock 数据和符合标准的 DSL。
-
-
-`````
-DSL 类似 HTML， 但是是 JSON 格式， 大概的情况如下:
-
-1. 有一个标签集合， 但和 HTML 支持的标签不一样， 完全是另一套自定义的标签， 下面 DSL 标准定义里会有说明
-2. 每个标签都只能使用 DSL 标准定义里面对应该标签的那些属性，绝对不能使用未出现在其定义里的属性
-3. DSL 里各个字段的值可以是固定的值， 也可以使用数据里对应的字段, 可以通过 ${数据字段名} 来引用对应字段的数据， 比如:
-    `"name": "${x}"`: 表示 name 字段的值使用数据里的 x 字段
-    `"name": "${x.y}"`: 表示 name 字段的值使用数据里的 x.y 字段
-4. 如果 DSL 里会出现列表形式的数组节点， 且对应的数据是数组或键值对对象， 那可以使用 mfor 条件语法来精简 DSL， 具体用法参考后面的示例部分
-
-请注意： 这份标准是完全独立且有限的，DSL 里只能使用标准里定义的字段和属性， 这份标准和任何开源技术都无关，它不是 HTML、也不是 CSS ！！！
-
-下面包在 ``` 里的内容是使用 typescript 描述的 DSL 标准， 部分代码会有对应的注释说明:
-```
-# D2C 平台的 DSL 标准定义
-
-DSL 标准里本质是定义了一些标签， 将这些标签进行组合、嵌套即可描述任意 UI 界面。
-
-具体标签的 DSL 描述里， 可以绑定数据， 也可以使用一些条件语法。
-
-## 样式
-
-针对样式， 我们定义了一个支持的属性列表， DSL 里只支持使用列表里的属性。
-
-### 样式属性的值类型定义
-
-以下是上面样式属性里用到的各个值类型的定义
-
-```typescript
 // 展示策略
 const enum Display {
     // 隐藏，不占位
@@ -218,21 +186,16 @@ const enum LottieRepeat {
     Yse = '1',
     No = '0'
 }
-```
 
-### 属性列表
-
-以下是支持的属性列表。
-
-```typescript
+// 样式属性列表
 interface Style {
     // 展示策略
     visibility?: Display;
     // 宽度。单位为px的数值
-    width?: string;
+    width?: number;
 
     // 高度，单位为px的数值
-    height?: string;
+    height?: number;
 
     // 外边距，值必须是包含四部分，依次代表上、右、下、左四个方向的间距，单位为px， 示例: margin: '10px 10px 8px 4px'
     margin?: string;
@@ -240,7 +203,7 @@ interface Style {
     // 内边距，值必须是包含四部分，依次代表上、右、下、左四个方向的间距，单位为px， 示例: padding: '10px 10px 8px 4px'
     padding?: string;
     // 矩形边框宽度。单位为px
-    borderWidth?: string;
+    borderWidth?: number;
     // 矩形边框颜色。取值同css中border-color
     borderColor?: string;
     // 圆角边框，单位为px
@@ -264,7 +227,7 @@ interface Style {
     // 布局方位(linear/frame直接子节点应用)
     gravity?: Gravity;
     // 类似css的z-index
-    weight?: string;
+    weight?: number;
     // 定义项目的放大比例(flex直接子元素应用)
     flexGrow?: FlexGrow;
     // 定义了项目的缩小比例(flex直接子元素应用)
@@ -272,7 +235,7 @@ interface Style {
     // 允许 flex 的直接子元素有与其他直接子元素不一样的对齐方式，可覆盖alignItems属性
     alignSelf?: AlignSelf;
     // 图片或者lottie地址
-    src: string; 
+    src?: string;
     placeHolder?: string;
     loopTime?: string;
     scale?: string;
@@ -284,98 +247,90 @@ interface Style {
     repeat?: string;
     resizeMode?: LottieResizeMode;
     // 文本字体大小k。单位为px。
-    fontSize: string;
+    fontSize?: number;
     // 文本颜色。仅支持 RGB 格式的颜色值， 示例: color: '#fefefe'
-    color: string;
+    color?: string;
     // 文本截断位置
-    ellipsis: Ellipsis;
+    ellipsis?: Ellipsis;
     // 文本粗细程度
-    fontWeight: FontWeight;
+    fontWeight?: FontWeight;
     strokeWidth?: string;
     // 文本行高。单位为px。
     lineHeight?: string;
     // 文本修饰线
     decoration?: TextDecoration;
 }
-```
 
-### 通用样式定义
-
-以下样式属性集合比较常用， 我们单独定义一个类型， 方便后面定义标签时复用。
-
-```typescript
+/**
+ * 通用样式属性，属性值类型和 Style 类型一致， 属于 Style 类型的一个子集
+ */
 interface GeneralStyle {
     visibility?: Display;
-    width?: string;
-    height?: string;
+    width?: number;
+    height?: number;
     margin?: string;
     padding?: string;
-    borderWidth?: string;
+    borderWidth?: number;
     borderColor?: string;
     borderRadius?: string;
     bgColor?: string;
 }
-```
 
-## 基础 DSL 格式
+// 下面是条件类型定义
 
-所有的标签都遵守以下基础的 DSL 格式。
-
-> 注意，以下只是基础 DSL 格式， 类似于基类， 真实的 DSL 描述里并不会出现这些基类，只会出现具体标签的 DSL。
-
-### 基础 DSL
-
-```typescript
-interface DSL {
-    // 标签名，取值唯一， 且只能是标准里定义过的标签， 不能自行创造
-    type: string;
-
-    // 样式属性，具体参考后面的 Style 类型定义
-    // 每个标签可能仅支持 Style 类型里部分特定属性， 具体参考后面具体标签的定义
-    style?: Style;
-
-    // 暗黑样式属性，类似 style 属性， 仅代表暗黑模式下的样式属性
-    darkStyle?: Style;
-
-    // 其它属性，有些标签可能会有一些特定的属性
-    props?: Record<string, any>;
-
-    // 条件判断，目前支持 if、show、for， 具体参考后面的条件语法说明
-    condition?: Condition;
-
-    // 子节点集合，必须是一个数组
-    children?: DSL[];
-
-    // 只有一个子节点是文本。只在span标签和text标签存在
-    text?: string;
-
-    // 当该节点可以包含子节点时，规定哪些标签可以做为其子节点， 取值为标签名的数组
-    childrenTypes?: string[];
+/**
+ * 条件类型，仅支持 mfor 指令。
+ *
+ * 对于数组和对象数据， 可以使用 mfor 语法来表示循环一个列表数据， 并生成对应的节点标签， 下面是一个根据数据循环生成 span 标签的示例
+ *
+ * 遍历数组`{x: ['a', 'b', 'c']}`：
+ * ```js
+ * {
+ *     type: 'span',
+ *     condition: {
+ *         mfor: {
+ *             list: '${data.x}', // 变量 x 是个数组
+ *             item: 'item', // 值就是对应单个列表项的变量名， 可以指定任意合法的变量名
+ *             index: 'i' // 对应单个列表项在数组中的索引， 可以指定任意合法的变量名
+ *         },
+ *     },
+ *     text: '${ i } - ${ item }' // 可以使用 mfor 条件里定义的变量名
+ * }
+ * ```
+ *
+ * 遍历对象`{y: {a: 1, b: 2, c: 3}}`：
+ * ```js
+ * {
+ *     type: 'span',
+ *     condition: {
+ *         mfor: {
+ *             list: '${data.y}', // 变量 x 是个对象
+ *             item: 'val', // 值可以指定任意合法的变量名， 对应对象里单个键值对的值
+ *             index: 'key' // 值可以指定任意合法的变量名， 对应对象里单个键值对的健
+ *         },
+ *     },
+ *     text: '${ key } - ${ val }' // 可以使用 mfor 条件里定义的变量名
+ * }
+ * ```
+ */
+interface Condition {
+    // 循环的列表变量，支持数组和对象
+    mfor?: {
+        // 要循环的列表数据， 值一般是绑定一个数组数据， 比如 list: '${data.list}'
+        list: string;
+        // 遍历列表项的变量名，代表该项的值
+        item: string;
+        // 遍历列表项的索引变量名， 代表该项的索引
+        index: string;
+    };
 }
-```
 
-### 容器 DSL
+// 以下是所有支持的标签的具体定义， 包含了每个标签对应的 样式属性
 
-容器标签比较常用， 我们专门为它定义了一个类型：
-
-```typescript
-interface ParentDSL extends DSL {
-    // 常规父容器一定有 children 字段， 类型必须是一个数组
-    children: DSL[];
-}
-```
-
-## 标签
-
-以下是标准里定义的支持的标签。
-
-### `flex` 标签
-
-最常用的布局标签之一：弹性布局， DSL 定义如下：
-
-```typescript
-// flex 标签支持的样式属性， flex 标签只能使用这些样式属性
-// 属性含义见 Style 接口的属性
+/**
+ * flex 标签支持的样式属性， flex 标签只能使用这些样式属性
+ * 属性值类型和 Style 类型一致， 属于 Style 类型的一个子集
+ */
 interface FlexStyle extends GeneralStyle {
     flexDirection: FlexDirection;
     bgImg?: string;
@@ -385,53 +340,65 @@ interface FlexStyle extends GeneralStyle {
     alignItems?: AlignItems;
     justifyContent?: JustifyContent;
     gravity?: Gravity;
-    weight?: string;
+    weight?: number;
     flexGrow?: FlexGrow;
     flexShrink?: FlexShrink;
     alignSelf?: AlignSelf;
 }
 
-// flex 标签的 DSL 定义
-interface FlexDSL extends ParentDSL {
+// flex 标签的定义，是最常用的布局标签之一：弹性布局
+interface FlexNode {
+    // 标签名固定为 'flex'
     type: 'flex';
     style: FlexStyle;
-    children: DSL[];
+
+    /**
+     * 条件语法，仅支持 mfor 指令， 具体参考 Condition 类型
+     */
+    condition?: Condition;
+
+    /**
+     * 子节点，可以有多个
+     */
+    children: Node[];
 }
-```
 
-### `frameLayout` 标签
-
-较常用的布局标签之一： 层叠布局，类似 CSS 里 `position: absolute` 的效果，只用在合适的场景里， DSL 定义如下：
-
-```typescript
-// frameLayout 标签支持的样式属性， frameLayout 标签只能使用这些样式属性
-// 属性含义见 Style 接口的属性
+/**
+ * frameLayout 标签支持的样式属性， frameLayout 标签只能使用这些样式属性
+ * 属性值类型和 Style 类型一致， 属于 Style 类型的一个子集
+ */
 interface FrameStyle extends GeneralStyle {
     bgImg?: string;
     scaleType?: ImgScaleType;
     overflow?: Overflow;
     gravity?: Gravity;
-    weight?: string;
+    weight?: number;
     flexGrow?: FlexGrow;
     flexShrink?: FlexShrink;
     alignSelf?: AlignSelf;
 }
 
-// frameLayout 标签的 DSL 定义
-interface FrameDSL extends ParentDSL {
+// frameLayout 标签的定义，是较常用的布局标签之一： 层叠布局，类似 CSS 里 `position: absolute` 的效果，只用在合适的场景里
+interface FrameNode {
+    // 标签名固定为 'frameLayout' , 不是 'frame'
     type: 'frameLayout';
     style: FrameStyle;
-    children: DSL[];
+
+    /**
+     * 条件语法，仅支持 mfor 指令， 具体参考 Condition 类型
+     */
+    condition?: Condition;
+
+    /**
+     * 子节点，可以有多个
+     */
+    children: Node[];
 }
-```
 
-### `linearLayout` 标签
-
-常用的布局标签之一： 线性布局，类似 Android 里的 linearLayout， DSL 定义如下：
-
-```typescript
-// linearLayout 标签支持的样式属性， linearLayout 标签只能使用这些样式属性
-// 属性含义见 Style 接口的属性
+/**
+ * linearLayout 标签支持的样式属性， linearLayout 标签只能使用这些样式属性
+ * 属性值类型和 Style 类型一致， 属于 Style 类型的一个子集
+ */
 interface LinearStyle extends GeneralStyle {
     bgImg?: string;
     scaleType?: ImgScaleType;
@@ -440,109 +407,66 @@ interface LinearStyle extends GeneralStyle {
     gap?: string;
     showNum?: string;
     gravity?: Gravity;
-    weight?: string;
+    weight?: number;
     flexGrow?: FlexGrow;
     flexShrink?: FlexShrink;
     alignSelf?: AlignSelf;
 }
 
-// linearLayout 标签的 DSL 定义
-interface FrameDSL extends ParentDSL {
+// linearLayout 标签的定义，是常用的布局标签之一： 线性布局，类似 Android 里的 linearLayout
+interface LinearNode {
+    // 标签名固定为 'linearLayout' , 不是 'linear'
     type: 'linearLayout';
-    style: FrameStyle;
-    children: DSL[];
+    style: LinearStyle;
+
+    /**
+     * 条件语法，仅支持 mfor 指令， 具体参考 Condition 类型
+     */
+    condition?: Condition;
+
+    /**
+     * 子节点，可以有多个
+     */
+    children: Node[];
 }
-```
 
-### `scroll` 标签
-
-较常用的布局标签之一： 滚动布局，内部的子元素高度或宽度超出容器尺寸后， 支持滚动，只用在合适的场景里， DSL 定义如下：
-
-```typescript
-// scroll 标签支持的样式属性， scroll 标签只能使用这些样式属性
-// 属性含义见 Style 接口的属性
+/**
+ * scroll 标签支持的样式属性， scroll 标签只能使用这些样式属性
+ * 属性值类型和 Style 类型一致， 属于 Style 类型的一个子集
+ */
 interface ScrollStyle extends GeneralStyle {
     orientation: Orientation;
     gravity?: Gravity;
-    weight?: string;
+    weight?: number;
     flexGrow?: FlexGrow;
     flexShrink?: FlexShrink;
     alignSelf?: AlignSelf;
 }
 
-// scroll 标签的 DSL 定义
-interface ScrollDSL extends ParentDSL {
+// scroll 标签的定义，是较常用的布局标签之一： 滚动布局，内部的子元素高度或宽度超出容器尺寸后， 支持滚动，只用在合适的场景里
+interface ScrollNode {
+    // 标签名固定为 'scroll'
     type: 'scroll';
     style: ScrollStyle;
-    children: DSL[];
-}
-```
 
-### `img` 标签
+    /**
+     * 条件语法，仅支持 mfor 指令， 具体参考 Condition 类型
+     */
+    condition?: Condition;
 
-常用的内容标签之一： 图片标签，常用来显示图片， DSL 定义如下：
-
-```typescript
-// img 标签支持的样式属性， img 标签只能使用这些样式属性
-// 属性含义见 Style 接口的属性
-interface ImgStyle extends GeneralStyle {
-    // 图片地址
-    src: string;
-    scaleType: ImgScaleType;
-    placeHolder?: string;
-    gravity?: Gravity;
-    weight?: string;
-    flexGrow?: FlexGrow;
-    flexShrink?: FlexShrink;
-    alignSelf?: AlignSelf;
+    /**
+     * 子节点，可以有多个
+     */
+    children: Node[];
 }
 
-// img 标签的 DSL 定义
-interface ImgDSL extends DSL {
-    type: 'img';
-    style: ImgStyle;
-}
-```
-
-### `lottie` 标签
-
-常用的内容标签之一： lottie 标签， 语法类似 img 标签，但只能用来显示 lottie 资源， DSL 定义如下：
-
-```typescript
-// lottie 标签支持的样式属性， lottie 标签只能使用这些样式属性
-// 属性含义见 Style 接口的属性
-interface LottieStyle extends GeneralStyle {
-    src: string;
-    scaleType: ImgScaleType;
-    placeHolder?: string;
-    loopTime?: string;
-    scale?: string;
-    repeat?: string;
-    resizeMode?: LottieResizeMode;
-    gravity?: Gravity;
-    weight?: string;
-    flexGrow?: FlexGrow;
-    flexShrink?: FlexShrink;
-    alignSelf?: AlignSelf;
-}
-
-// lottie 标签的 DSL 定义
-interface LottieDSL extends DSL {
-    type: 'lottie';
-    style: LottieStyle;
-}
-```
-
-### `span` 标签
-
-常用的内容标签之一： 纯文本标签， 用来渲染文字， 所有文字必须包含在一个 span 标签里， DSL 定义如下：
-
-```typescript
-// span 标签支持的样式属性， span 标签只能使用这些样式属性
-// 属性含义见 Style 接口的属性
+/**
+ * span 标签支持的样式属性， span 标签只能使用这些样式属性
+ * 属性值类型和 Style 类型一致， 属于 Style 类型的一个子集
+ */
 interface SpanStyle {
     visibility?: Display;
-    fontSize: string;
+    fontSize: number;
     color: string;
     ellipsis: Ellipsis;
     fontWeight: FontWeight;
@@ -551,60 +475,89 @@ interface SpanStyle {
     decoration?: TextDecoration;
 }
 
-// span 标签的 DSL 定义，span没有children属性，不能嵌套其他标签。
-interface SpanDSL extends DSL {
+// span 标签的定义，是常用的内容标签之一： 纯文本标签， 用来渲染文字， 所有文字内容都只能包含在一个 span 标签里
+interface SpanNode {
+    // 标签名固定为 'span' , 不是 'text'
     type: 'span';
     style: SpanStyle;
+
+    /**
+     * 文本内容
+     */
     text: string;
+
+    /**
+     * 条件语法，仅支持 mfor 指令， 具体参考 Condition 类型
+     */
+    condition?: Condition;
 }
-```
 
-## 绑定数据
-
-DSL 里大部分字段的值， 可以绑定数据里特定的字段， 格式为 '${字段名}' ， 其中字段名支持多级，数据整体本身命名固定为 `data`。
-
-比如， `style` 下的 `color` 属性值需要绑定数据里的 `x` 字段， 则 DSL 里的对应 `color` 属性的描述为 `color: '${data.x}'`。
-
-## 条件语法
-
-DSL 里也可以使用条件语法，在 `condition` 字段里声明即可， 支持 `mfor` `mif` `show` 三种语法。
-
-```typescript
-// 条件类型
-interface Condition {
-    // 是否渲染
-    mif?: string;
-    // 是否展示
-    show?: string;
-    // 循环渲染
-    mfor?: ConditionFor;
+/**
+ * img 标签支持的样式属性， img 标签只能使用这些样式属性
+ * 属性值类型和 Style 类型一致， 属于 Style 类型的一个子集
+ */
+interface ImgStyle extends GeneralStyle {
+    // 图片地址，一个 URL, 注意， src 属性是在标签的 style 字段下， 而不是标签的根节点里
+    src: string;
+    scaleType: ImgScaleType;
+    placeHolder?: string;
+    gravity?: Gravity;
+    weight?: number;
+    flexGrow?: FlexGrow;
+    flexShrink?: FlexShrink;
+    alignSelf?: AlignSelf;
 }
-```
 
-### `mfor`
+// img 标签的定义，是常用的内容标签之一： 图片标签，常用来显示图片
+interface ImgNode {
+    // 标签名固定为 'img' , 不是 'image'
+    type: 'img';
+    style: ImgStyle;
 
-表示将一个节点循环输出， 具体定义如下：
-
-```typescript
-interface ConditionFor {
-    // 循环的列表变量，支持数组和对象， 值可以是数组或对象常量，也可以绑定数据
-    list: string;
-
-    item: string; // 遍历列表项的变量名，代表该项的值
-    index: string; // 遍历列表项的索引变量名， 代表该项的索引
+    /**
+     * 条件语法，仅支持 mfor 指令， 具体参考 Condition 类型
+     */
+    condition?: Condition;
 }
-```
 
-### `mif` 和 `show`
+/**
+ * lottie 标签支持的样式属性， lottie 标签只能使用这些样式属性
+ * 属性值类型和 Style 类型一致， 属于 Style 类型的一个子集
+ */
+interface LottieStyle extends GeneralStyle {
+    // lottie 资源地址， 一个 URL， 注意， src 属性是在标签的 style 字段下， 而不是标签的根节点里
+    src: string;
+    scaleType: ImgScaleType;
+    placeHolder?: string;
+    loopTime?: string;
+    scale?: string;
+    repeat?: string;
+    resizeMode?: LottieResizeMode;
+    gravity?: Gravity;
+    weight?: number;
+    flexGrow?: FlexGrow;
+    flexShrink?: FlexShrink;
+    alignSelf?: AlignSelf;
+}
 
-这两个条件比较类似，一个表示是否渲染， 一个表示渲染后是否展示， 值的格式都一样，是一个表达式， 返回值会被强制转为 布尔值。
+// lottie 标签的定义，是内容标签之一： lottie 标签， 语法类似 img 标签，但只能用来显示 lottie 资源
+interface LottieNode {
+    // 标签名固定为 'lottie'
+    type: 'lottie';
+    style: LottieStyle;
 
-以下是几个示例：
+    /**
+     * 条件语法，仅支持 mfor 指令， 具体参考 Condition 类型
+     */
+    condition?: Condition;
+}
 
-- `mif: '${x} > 1'`
-- `show: '${isShow}'`
+/**
+ * 以下就是标准里定义的所有标签，标签名为每个标签类型定义里的 type 字段，每个 DSL 描述都需要符合以下格式
+ */
+export type Node = FlexNode | FrameNode | LinearNode | ScrollNode | SpanNode | ImgNode | LottieNode;
 
-## 示例
+/*
 
 下面是一个比较完整的示例， 包括了 mock 数据， 以及绑定了 mock 数据的 DSL 描述。
 
@@ -629,6 +582,7 @@ DSL 描述：
 > 注意：为了方便描述，DSL 里省略了大部分的样式属性， 同时没有使用 JSON 格式， 而是 JS 里的对象格式
 
 ```javascript
+// 需要严格符合 Node 类型
 {
     type: 'flex';
     style: {
@@ -643,11 +597,11 @@ DSL 描述：
             children: [
                 {
                     type: 'span',
-                    text: '${ title }' // 使用 title 字段
+                    text: '${ data.title }' // 使用 title 字段
                 }，
                 {
                     type: 'span',
-                    text: '${ person.name }' // 使用 person.name 字段
+                    text: '${ data.person.name }' // 使用 person.name 字段
                 }
             ]
         },
@@ -660,19 +614,19 @@ DSL 描述：
                 {
                     type: 'span',
                     condition: {
-                        // 这里使用 mfor 对列表形式的 DSL 节点进行了精简
+                        // 使用 mfor 语法来遍历数组， 以便精简 DSL 体积
                         mfor: {
-                            list: '${x}', // 使用 x 变量，是个数组
-                            item: 'dataItem', // 值就是对应单个列表项的变量名， 可以指定任意合法的变量名
+                            list: '${data.x}', // 变量 x 是个数组
+                            item: 'item', // 值就是对应单个列表项的变量名， 可以指定任意合法的变量名
                             index: 'i' // 对应单个列表项在数组中的索引， 可以指定任意合法的变量名
                         },
                     },
-                    text: '${ i } - ${ dataItem }' // 使用 for 条件里定义的变量名
+                    text: '${ i } - ${ item }' // 可以使用 mfor 条件里定义的变量名
                 }
             ]
         },
         {
-            
+
             type: 'flex',
             style: {
                 flexDirection: 'row',
@@ -684,9 +638,10 @@ DSL 描述：
                         flexDirection: 'row',
                     },
                     condition: {
+                        // 使用 mfor 语法来遍历对象， 以便精简 DSL 体积
                         mfor: {
-                            list: '${y}', // 也支持对 对象使用 mfor 条件语法
-                            item: 'dataItem', // 值可以指定任意合法的变量名， 对应对象里单个键值对的值
+                            list: '${data.y}', // 也支持对 对象使用 mfor 条件语法
+                            item: 'val', // 值可以指定任意合法的变量名， 对应对象里单个键值对的值
                             index: 'key' // 值可以指定任意合法的变量名， 对应对象里单个键值对的健
                         },
                     },
@@ -694,12 +649,12 @@ DSL 描述：
                         {
                             type: 'img',
                             style: {
-                                src: '${ dataItem.imgUrl }' // 使用 for 条件里定义的变量名
+                                src: '${ val.imgUrl }' // 使用 for 条件里定义的变量名
                             }
                         },
                         {
                             type: 'span',
-                            text: '${ key } - ${ dataItem.text }' // 使用 for 条件里定义的变量名
+                            text: '${ key } - ${ val.text }' // 使用 for 条件里定义的变量名
                         }
                     ]
                 }
@@ -709,13 +664,5 @@ DSL 描述：
 }
 ```
 
-## 最后
 
-以上即是所有的 DSL 标准定义， 所有的 DSL 描述都只能基于以上定义来生成：
-
-- 只能使用定义的这些标签，即 type 字段的值绝对不能出现其他未定义的标签名
-- 各个标签下只能使用定义里对应的样式属性， 即 style 字段下绝对不能出现该标签定义里未出现的属性名
-
-```
-
-`````
+*/
