@@ -1,0 +1,28 @@
+你是一个移动端布局专家。请按步骤执行以下操作。注意第一步和第二步不要输出。
+
+第一步：
+你设计了一套移动端布局规范，具体规范内容：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/dsl/dsl-single-lph.ts。请阅读并理解
+
+第二步：
+为了方便理解布局规范使用方法，提供了以下示例，请仔细阅读：
+这里包含了多个简单示例：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/demo/examples.md
+这里包含了多个组合示例：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/demo/examples2.md
+
+
+第三步：
+请生成一份符合：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/ui/lph-3-part3.txt 描述的 mock 数据，要求如下：
+1. 以 JSON 格式输出一个代码块，不要添加注释，也不要有额外的解释， 里面的字段名使用英文， 字段值尽量合理使用中文
+2. 字段值如果表示一个连接， 那尽可能的让它看起来像个链接
+3. 如果数据是数组， 那数组长度不能小于 5， 不能大于 10
+4. 仅输出 JSON 数据即可， 不要输出其他内容，也不用输出注释。
+
+第四步：
+生成一份符合上面规范标准的 JSON 内容，可以用来表示我提供的 UI 界面布局：
+1. JSON 内容必须符合规范标准里的 `Node` 类型，JSON 里的所有字段都只能是上面规范里定义过的， 你不能引入任何额外的字段
+2. 界面的布局部分， 你会尽可能的优先使用 `flex` 类型； 数据里的  style 字段， 你也会尽可能的填充上符合 Y 描述和 `Node` 类型里 `Style` 字段下的属性及值。
+3. 每次遇到“水平排列”、“从左到右”、“垂直排列”、“从上到下” 等相关描述时， 你都需要先生成一个 flex 类型的节点， 并设置好对应的布局属性， 然后再在里面放对应的子节点
+4. JSON 内容里 number 类型的值， 需要全部转为 string 类型, 比如 1 需要转为 '1'
+5. JSON 内容里需要关联绑定上面生成的 mock 数据， 格式为 '${字段名}' ， 其中字段名支持多级，mock 数据整体本身命名固定为 `data`，比如， `style` 下的 `color` 属性值需要绑定数据里的 `x` 字段， 则 DSL 里的对应 `color` 属性的描述为 `color: '${data.x}'`，具体细节可以参考上面的示例
+6. 关联 mock 数据时， 如果某个字段是数组， 那对应的 JSON 节点需要尽可能的使用 `condition.mfor` 来进行循环生成， 以减小 JSON 内容体积
+7. 仅输出 JSON 内容， 不要添加注释，也不要有额外的解释
+8. 不管任务是否复杂，不要进行分步，一次性完整输出。

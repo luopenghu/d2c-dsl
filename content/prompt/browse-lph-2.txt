@@ -1,17 +1,17 @@
-这是一个 ts 的类型定义： https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/dsl.ts ， 记为 X。
+这是一个 ts 的类型定义： https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/dsl/dsl-single-lph.ts ， 记为 X。
 
 为了更好的了解 X 的用法，下面提供了几个完整的示例，包括了 UI 界面描述，根据 ui 界面描述生成的 mock 数据， 以及绑定了 mock 数据的 DSL 描述，请仔细阅读并且理解：
-多个简单示例：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/examples.md
-多个组合示例：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/examples2.md
-单个示例1：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/demo1.md
-单个示例2：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/demo2.md
-单个示例3：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/demo3.md
-单个示例4：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/demo_ljh.md
-单个示例5：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/demo_lrn.md
-单个示例6：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/demo_scc.md
-单个示例7：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/demo_zhk.md
+多个简单示例：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/demo/examples.md
+多个组合示例：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/demo/examples2.md
+单个示例1：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/demo/demo1.md
+单个示例2：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/demo/demo2.md
+单个示例3：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/demo/demo3.md
+单个示例4：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/demo/demo_ljh.md
+单个示例5：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/demo/demo_lrn.md
+单个示例6：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/demo/demo_scc.md
+单个示例7：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/demo/demo_zhk.md
 
-UI 界面描述： https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/ui.txt ，记为 Y， 注意：里面非 UI 描述的内容可以忽略，比如界面交互。
+UI 界面描述： https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/ui/lph-2.txt ，记为 Y， 注意：里面非 UI 描述的内容可以忽略，比如界面交互。
 
 第一步：学习 X 并且查看完所有示例，不需要输出具体步骤，只需要输出结果。
 
