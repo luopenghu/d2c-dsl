@@ -8,9 +8,8 @@
 这里包含了多个简单示例：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/demo/examples.md
 这里包含了多个组合示例：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/demo/examples2.md
 
-
 第三步：
-请生成一份符合：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/ui/lph-3-part4.txt 描述的 mock 数据，要求如下：
+请生成一份符合：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/ui/lph-3-top4.txt 描述的 mock 数据，要求如下：
 1. 以 JSON 格式输出一个代码块，不要添加注释，也不要有额外的解释， 里面的字段名使用英文， 字段值尽量合理使用中文
 2. 字段值如果表示一个连接， 那尽可能的让它看起来像个链接
 3. 如果数据是数组， 那数组长度不能小于 5， 不能大于 10
