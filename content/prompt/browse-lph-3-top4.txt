@@ -5,7 +5,7 @@
 
 第二步：
 为了方便理解布局规范使用方法，提供了以下示例，请仔细阅读：
-这里包含了多个简单示例：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/demo/examples.md
+这里包含了多个简单示例：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/demo/examples1.md
 这里包含了多个组合示例：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/demo/examples2.md
 
 第三步：

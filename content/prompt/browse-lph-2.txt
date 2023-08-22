@@ -1,7 +1,7 @@
 这是一个 ts 的类型定义： https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/dsl/dsl-single-lph.ts ， 记为 X。
 
 为了更好的了解 X 的用法，下面提供了几个完整的示例，包括了 UI 界面描述，根据 ui 界面描述生成的 mock 数据， 以及绑定了 mock 数据的 DSL 描述，请仔细阅读并且理解：
-多个简单示例：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/demo/examples.md
+多个简单示例：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/demo/examples1.md
 多个组合示例：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/demo/examples2.md
 单个示例1：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/demo/demo1.md
 单个示例2：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/demo/demo2.md

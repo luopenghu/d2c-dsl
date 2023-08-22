@@ -5,7 +5,7 @@
 以下是一些符合这个规范的 JSON 描述示例， 每个示例包含 UI 界面描述、基于 UI 界面描述生成的 mock 数据、以及符合上面标准规范的 JSON 描述：
 注意：为了方便你理解， 示例里的 JSON 会有部分注释说明， 但实际生成的 JSON 里并不会有。
 
-这里包含了多个简单示例：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/examples.md
+这里包含了多个简单示例：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/examples1.md
 这里包含了多个组合示例：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/examples2.md
 单个示例1：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/demo1.md
 单个示例2：https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/demo2.md
