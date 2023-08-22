@@ -13,7 +13,7 @@ https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/demo/examples.m
 1. 以 JSON 格式输出一个代码块，不要添加注释，也不要有额外的解释， 里面的字段名使用英文， 字段值尽量合理使用中文
 2. 字段值如果表示一个连接， 那尽可能的让它看起来像个链接
 3. 如果数据是数组， 那数组长度不能小于 5， 不能大于 10
-4. 仅输出 JSON 数据即可， 不要输出其他内容，也不用输出注释。
+4. 仅输出 JSON 数据即可， 不要输出其他内容，也不用输出注释
 
 第四步：
 生成一份符合上面规范标准的 JSON 内容，可以用来表示我提供的 UI 界面布局：
@@ -24,4 +24,4 @@ https://raw.githubusercontent.com/luopenghu/d2c-dsl/main/content/demo/examples.m
 5. JSON 内容里需要关联绑定上面生成的 mock 数据， 格式为 '${字段名}' ， 其中字段名支持多级，mock 数据整体本身命名固定为 `data`，比如， `style` 下的 `color` 属性值需要绑定数据里的 `x` 字段， 则 DSL 里的对应 `color` 属性的描述为 `color: '${data.x}'`，具体细节可以参考上面的示例
 6. 关联 mock 数据时， 如果某个字段是数组， 那对应的 JSON 节点需要尽可能的使用 `condition.mfor` 来进行循环生成， 以减小 JSON 内容体积
 7. 仅输出 JSON 内容， 不要添加注释，也不要有额外的解释
-8. 不管任务是否复杂，不要进行分步，一次性完整输出。
+8. 不管任务是否复杂，不要进行分步，一次性完整输出
